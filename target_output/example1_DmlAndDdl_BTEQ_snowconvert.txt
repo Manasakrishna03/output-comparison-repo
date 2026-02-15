@@ -1,0 +1,87 @@
+﻿#*** Generated code is based on the SnowConvert Python Helpers version 3.0.0 ***
+ 
+import os
+import sys
+import snowconvert.helpers
+from snowconvert.helpers import Export
+from snowconvert.helpers import exec
+from snowconvert.helpers import BeginLoading
+from snowconvert.helpers import MessageOut
+con = None
+def main():
+  snowconvert.helpers.configure_log()
+  con = snowconvert.helpers.log_on()
+  #** SSC-FDM-0027 - REMOVED NEXT STATEMENT, NOT APPLICABLE IN SNOWFLAKE. LOGON **
+  #------------------------------------------------------------------------------------------------------------
+  #-- Description: Performs a series of operations on the Employee table.
+  #--      It creates the table, inserts four records, updates an employee's department,
+  #--      displays the table contents, deletes a record, and finally drops the table.
+  #--      If any errors occur, it exits with an error code.
+  #-- SnowConvert Features: DML and DDL in BTEQ..
+  #------------------------------------------------------------------------------------------------------------
+  #.LOGON dbc, dbc
+   
+  exec("""
+    USE DATABASE CRASHDUMPS
+    """)
+  exec("""
+    CREATE OR REPLACE TABLE CRASHDUMPS.Employee (
+      EmployeeID INT NOT NULL,
+      FirstName VARCHAR(50) COLLATE 'en-ci',
+      LastName VARCHAR(50) COLLATE 'en-ci',
+      Department VARCHAR(50) COLLATE 'en-ci',
+      Email VARCHAR(100) COLLATE 'en-ci',
+      PRIMARY KEY (EmployeeID)
+    )
+    """)
+  exec("""
+    INSERT INTO CRASHDUMPS.Employee (EmployeeID, FirstName, LastName, Department, Email)
+    VALUES (1, 'John', 'Doe', 'HR', 'john.doe@company.com')
+    """)
+  exec("""
+    INSERT INTO CRASHDUMPS.Employee (EmployeeID, FirstName, LastName, Department, Email)
+    VALUES (2, 'Jane', 'Smith', 'Finance', 'jane.smith@company.com')
+    """)
+  exec("""
+    INSERT INTO CRASHDUMPS.Employee (EmployeeID, FirstName, LastName, Department, Email)
+    VALUES (3, 'Robert', 'Brown', 'IT', 'robert.brown@company.com')
+    """)
+  exec("""
+    INSERT INTO CRASHDUMPS.Employee (EmployeeID, FirstName, LastName, Department, Email)
+    VALUES (4, 'Lucy', 'White', 'Marketing', 'lucy.white@company.com')
+    """)
+  exec("""
+    UPDATE CRASHDUMPS.Employee
+      SET
+        Department = 'Finance'
+      WHERE
+        EmployeeID = 1
+    """)
+  exec("""
+    SELECT
+      FirstName,
+      LastName,
+      Department,
+      Email
+    FROM
+      CRASHDUMPS.Employee
+    """)
+  exec("""
+    DELETE FROM
+      CRASHDUMPS.Employee
+    WHERE
+      EmployeeID = 4
+    """)
+  exec("""
+    DROP TABLE CRASHDUMPS.Employee
+    """)
+
+  if snowconvert.helpers.error_code != 0:
+    snowconvert.helpers.quit_application(snowconvert.helpers.error_code)
+  #** SSC-FDM-0027 - REMOVED NEXT STATEMENT, NOT APPLICABLE IN SNOWFLAKE. LOGOFF **
+  #.LOGOFF
+   
+  snowconvert.helpers.quit_application()
+
+if __name__ == "__main__":
+  main()

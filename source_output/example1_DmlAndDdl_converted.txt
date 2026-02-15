@@ -1,0 +1,39 @@
+=============================================
+Author:        Ascendion AVAA
+Date:  
+Description:   Performs DDL and DML operations on the Employee table including creation, insertion, update, selection, deletion, and dropping of the table.
+=============================================
+
+-- Create Employee table
+CREATE TABLE Employee (
+    EmployeeID INT NOT NULL,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Department VARCHAR(50),
+    Email VARCHAR(100),
+    PRIMARY KEY (EmployeeID)
+);
+
+-- Insert records
+INSERT INTO Employee (EmployeeID, FirstName, LastName, Department, Email)
+VALUES (1, 'John', 'Doe', 'HR', 'john.doe@company.com');
+INSERT INTO Employee (EmployeeID, FirstName, LastName, Department, Email)
+VALUES (2, 'Jane', 'Smith', 'Finance', 'jane.smith@company.com');
+INSERT INTO Employee (EmployeeID, FirstName, LastName, Department, Email)
+VALUES (3, 'Robert', 'Brown', 'IT', 'robert.brown@company.com');
+INSERT INTO Employee (EmployeeID, FirstName, LastName, Department, Email)
+VALUES (4, 'Lucy', 'White', 'Marketing', 'lucy.white@company.com');
+
+-- Update record
+UPDATE Employee
+SET Department = 'Finance'
+WHERE EmployeeID = 1;
+
+-- Select records
+SELECT FirstName, LastName, Department, Email FROM Employee;
+
+-- Delete record
+DELETE FROM Employee WHERE EmployeeID = 4;
+
+-- Drop table
+DROP TABLE Employee;
